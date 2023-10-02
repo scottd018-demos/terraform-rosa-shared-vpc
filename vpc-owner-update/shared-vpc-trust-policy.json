@@ -1,0 +1,16 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "SharedVPCTrustROSA",
+        "Effect": "Allow",
+        "Principal": {
+            "AWS": [
+                "arn:aws:iam::$CLUSTER_CREATOR_ACCOUNT_ID:role/$CLUSTER_NAME-openshift-ingress-operator-cloud-credentials",
+                "arn:aws:iam::$CLUSTER_CREATOR_ACCOUNT_ID:role/$CLUSTER_NAME-Installer-Role"
+            ]
+        },
+        "Action": "sts:AssumeRole"
+      }
+    ]
+  }

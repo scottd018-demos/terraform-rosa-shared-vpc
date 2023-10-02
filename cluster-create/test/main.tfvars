@@ -1,0 +1,12 @@
+rosa_cluster_name   = "dscott-test"
+aws_profile         = "mobb"
+aws_region          = "us-east-1"
+vpc_cidr            = "10.10.0.0/23"
+private             = true
+subnet_ids          = ["subnet-0e7c78583b940aefe"]
+availability_zones  = ["us-east-1a"]
+dns_domain          = "mzoy.p1.openshiftapps.com"
+oidc_config_id      = "26hot9f02u1q4uognrn3le8r1k1ie8a1"
+shared_vpc_role_arn = "arn:aws:iam::395050934327:role/dscott-test-shared-vpc"
+shared_vpc_zone_id  = "Z06535163RUVOVREJ4ZOC"
+# ocm_token = from environment
