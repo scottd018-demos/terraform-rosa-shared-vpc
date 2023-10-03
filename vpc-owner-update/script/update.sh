@@ -17,7 +17,7 @@ SCRIPT_DIR=$(dirname "$0")
 SHARED_VPC_IAM_ROLE="${CLUSTER_NAME}-shared-vpc"
 
 # ensure the role exists
-CURRENT_TRUST_POLICY=$(aws iam get-role --role-name "$SHARED_VPC_IAM_ROLE" --query "Role.AssumeRolePolicyDocument")
+CURRENT_TRUST_POLICY=$(aws iam get-role --role-name "$SHARED_VPC_IAM_ROLE" --query "Role.AssumeRolePolicyDocument" --profile "${VPC_PROFILE}")
 if [ -z "$CURRENT_TRUST_POLICY" ]; then
   echo "IAM role $SHARED_VPC_IAM_ROLE does not exist."
   exit 1
@@ -31,7 +31,8 @@ UPDATED_TRUST_POLICY=${UPDATED_TRUST_POLICY//\$CLUSTER_NAME/$CLUSTER_NAME}
 # update the iam role with the new trust policy
 aws iam update-assume-role-policy \
     --role-name "$SHARED_VPC_IAM_ROLE" \
-    --policy-document "$UPDATED_TRUST_POLICY"
+    --policy-document "$UPDATED_TRUST_POLICY" \
+    --profile ${VPC_PROFILE}
 
 # list the route53 hosted zones by domain name
 HOSTED_ZONE_QUERY=`aws route53 list-hosted-zones \

@@ -36,25 +36,41 @@ setup-destroy:
 # step 3: update vpc role and create route53 domain
 #   https://docs.openshift.com/rosa/rosa_install_access_delete_clusters/rosa-shared-vpc-config.html#rosa-sharing-vpc-hosted-zones_rosa-shared-vpc-config
 #
-VPC_ID ?= vpc-0d085fdb749ac91a5
-VPC_REGION ?= us-east-1
-VPC_PROFILE ?= mobb-workshop
-DOMAIN ?=
-CLUSTER_NAME ?= dscott-test
-CLUSTER_CREATOR_ACCOUNT_ID ?= 660250927410
-HOSTED_ZONE_ID ?=
+#
+# LEGACY SCRIPT: replaced with Terraform below.
+#
+# VPC_ID ?= vpc-0d085fdb749ac91a5
+# VPC_REGION ?= us-east-1
+# VPC_PROFILE ?= mobb-workshop
+# DOMAIN ?=
+# CLUSTER_NAME ?= dscott-test
+# CLUSTER_CREATOR_ACCOUNT_ID ?= 660250927410
+# HOSTED_ZONE_ID ?=
+# vpc-update:
+# 	export CLUSTER_CREATOR_ACCOUNT_ID=$(CLUSTER_CREATOR_ACCOUNT_ID) && \
+# 	export CLUSTER_NAME=$(CLUSTER_NAME) && \
+# 	export DOMAIN=$(DOMAIN) && \
+# 	export VPC_ID=$(VPC_ID) && \
+# 	export VPC_REGION=$(VPC_REGION) && \
+# 	export VPC_PROFILE=$(VPC_PROFILE) && \
+# 	vpc-owner-update/update.sh
+
+# vpc-update-destroy:
+# 	aws route53 delete-hosted-zone \
+# 		--id $(HOSTED_ZONE_ID) \
+# 		--profile $(VPC_PROFILE)
 vpc-update:
-	export CLUSTER_CREATOR_ACCOUNT_ID=$(CLUSTER_CREATOR_ACCOUNT_ID) && \
-	export CLUSTER_NAME=$(CLUSTER_NAME) && \
-	export DOMAIN=$(DOMAIN) && \
-	export VPC_ID=$(VPC_ID) && \
-	export VPC_REGION=$(VPC_REGION) && \
-	vpc-owner-update/update.sh
+	cd vpc-owner-update/test && \
+	terraform init && \
+	terraform apply \
+		-var-file=main.tfvars
 
 vpc-update-destroy:
-	aws route53 delete-hosted-zone \
-		--id $(HOSTED_ZONE_ID) \
-		--profile $(VPC_PROFILE)
+	cd vpc-owner-update/test && \
+	terraform init && \
+	terraform apply \
+		-var-file=main.tfvars \
+		-destroy
 
 #
 # step 4: create cluster
