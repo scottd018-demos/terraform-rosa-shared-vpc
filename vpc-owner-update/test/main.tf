@@ -1,4 +1,5 @@
 variable "rosa_cluster_name" {}
+variable "route53_zone" {}
 variable "aws_profile" {}
 variable "aws_region" {}
 variable "shared_vpc_role_name" {}
@@ -16,6 +17,7 @@ module "vpc_owner_update" {
 
   cluster_creator_account_id = "660250927410"
   rosa_cluster_name          = var.rosa_cluster_name
+  route53_zone               = "${var.rosa_cluster_name}.${var.route53_zone}"
   aws_profile                = var.aws_profile
   aws_region                 = var.aws_region
   shared_vpc_role_name       = var.shared_vpc_role_name

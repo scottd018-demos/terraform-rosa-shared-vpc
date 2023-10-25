@@ -26,3 +26,8 @@ variable "shared_vpc_role_name" {
   type        = string
   description = "The Shared VPC Role name created by the VPC owner in the VPC owner account."
 }
+
+variable "route53_zone" {
+  type        = string
+  description = "Domain value from cluster setup"
+}

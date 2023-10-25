@@ -12,10 +12,6 @@ terraform {
   }
 }
 
-provider "rhcs" {
-  token = var.ocm_token
-}
-
 provider "aws" {
   region  = var.aws_region
   profile = var.aws_profile

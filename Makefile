@@ -6,12 +6,14 @@ vpc-setup:
 	cd vpc-owner-setup/test && \
 	terraform init && \
 	terraform apply \
+		-auto-approve \
 		-var-file=main.tfvars
 
 vpc-setup-destroy:
 	cd vpc-owner-setup/test && \
 	terraform init && \
 	terraform apply \
+		-auto-approve \
 		-var-file=main.tfvars \
 		-destroy
 
@@ -23,12 +25,14 @@ setup:
 	cd cluster-setup/test && \
 	terraform init && \
 	terraform apply \
+		-auto-approve \
 		-var-file=main.tfvars
 
 setup-destroy:
 	cd cluster-setup/test && \
 	terraform init && \
 	terraform apply \
+		-auto-approve \
 		-var-file=main.tfvars \
 		-destroy
 
@@ -63,12 +67,14 @@ vpc-update:
 	cd vpc-owner-update/test && \
 	terraform init && \
 	terraform apply \
+		-auto-approve \
 		-var-file=main.tfvars
 
 vpc-update-destroy:
 	cd vpc-owner-update/test && \
 	terraform init && \
 	terraform apply \
+		-auto-approve \
 		-var-file=main.tfvars \
 		-destroy
 
@@ -80,6 +86,7 @@ cluster:
 	cd cluster-create/test && \
 	terraform init && \
 	terraform apply \
+		-auto-approve \
 		-var-file=main.tfvars
 
 cluster-destroy:
@@ -87,4 +94,5 @@ cluster-destroy:
 	terraform init && \
 	terraform apply \
 		-var-file=main.tfvars \
-		-destroy
+		-destroy \
+		-auto-approve
